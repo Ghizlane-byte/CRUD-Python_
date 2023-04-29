@@ -1,0 +1,193 @@
+import mysql.connector as mysql
+
+cursor=baseDades.cursor() 
+
+
+def Client ():
+    #CRUD Client
+    #Create
+    createClient()
+
+    #read
+    readClient()
+
+    #update
+    updateClient()
+
+    #delete
+    deleteClient()
+def createClient():
+    comanda="INSERT INTO Client (DNI_Client, Nom, Cognom) VALUES (%s,%s,%s)"
+    DNI_Client = input("Afegeix el DNI del Client: ")
+    Nom = input("Afegeix el Nom: ")
+    Cognom = input("Afegeix el Cognom: ")
+    valors=(DNI_Client, Nom, Cognom)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def readClient():
+    comanda="SELECT DNI_Client, Nom, Cognom FROM Client"
+    cursor.execute(comanda)
+    resultat=cursor.fetchall()
+    print(resultat)
+def updateClient():
+    DNI_Client= input("DNI Client que necessites modificar: ")
+    camp = input("\n Que vols canviar? \n -------------------- \n Cognom \n Nom \n\n -> ")
+
+    comanda="UPDATE Client SET "+camp+"=%s WHERE DNI_Client=%s"
+
+    if camp == "Nom":
+        Nom = input("Afegeix el Nom: ")
+        camp = Nom
+
+    elif camp == "Cognom":
+        Cognom = input("Afegeix el cognom: ")
+        camp = Cognom
+
+    valors=(camp, DNI_Client)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def deleteClient():
+    DNI_Client = input("DNI del Client que vols suprimir: ")
+    comanda="DELETE FROM Client WHERE DNI_Client=%s"
+    valors=(DNI_Client,)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+
+def Sala ():
+    #CRUD Sala
+    #Create
+    createSala()
+
+    #read
+    readSala()
+
+    #update
+    updateSala()
+
+    #delete
+    deleteSala()
+def createSala():
+    comanda="INSERT INTO Sala (N_Sala, Descripció) VALUES (%s, %s)"
+    N_Sala = input("Afegeix el numero de la sala: ")
+    Descripció = input("Afegeix una Descripció: ")
+    valors=(N_Sala, Descripció)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def readSala():
+    comanda = "SELECT N_Sala, Descripció FROM Sala"
+    cursor.execute(comanda)
+    resultat = cursor.fetchall()
+    print(resultat)
+def updateSala():
+    N_Sala = input("Número de sala que necessites modificar: ")
+    camp = input("\n Que vols canviar? \n -------------------- \n Descripció \n\n")
+
+    comanda="UPDATE Sala SET "+camp+"=%s WHERE N_Sala=%s"
+
+    if camp == "Descripció":
+        Nom = input("Afegeix la Descripció: ")
+        camp = Nom
+
+    valors=(camp, N_Sala)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def deleteSala():
+    N_Sala = input("Número de Sala que vols suprimir: ")
+    comanda="DELETE FROM Sala WHERE N_Sala=%s"
+    valors=(N_Sala,)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+
+def Material ():
+    #CRUD Material
+    #Create
+    createMaterial()
+
+    #read
+    readMaterial()
+
+    #update
+    updateMaterial()
+
+    #delete
+    deleteMaterial()
+def createMaterial():
+    comanda="INSERT INTO Material (N_Material, Descripció) VALUES (%s, %s)"
+    N_Material = input("Afegeix el numero del Material: ")
+    Descripció = input("Afegeix una Descripció: ")
+    valors=(N_Material, Descripció)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def readMaterial():
+    comanda = "SELECT N_Material, Descripció FROM Material"
+    cursor.execute(comanda)
+    resultat = cursor.fetchall()
+    print(resultat)
+def updateMaterial():
+    N_Material= input("Número del material que necessites modificar: ")
+    camp = input("\n Que vols canviar? \n -------------------- \n Descripció \n\n")
+
+    comanda="UPDATE Material SET "+camp+"=%s WHERE N_Material=%s"
+
+    if camp == "Descripció":
+        Descripció = input("Afegeix una descripció: ")
+        camp = Descripció
+
+
+    valors=(camp, Descripció)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+def deleteMaterial():
+    N_Material = input("Número de material que vols suprimir: ")
+    comanda="DELETE FROM Material WHERE N_Material=%s"
+    valors=(N_Material,)
+
+    cursor.execute(comanda,valors)
+    baseDades.commit()
+
+while True:
+    pregunta = input  ("\n Sel·leciona una taula: \n ---------------------- \n 1. Client \n 2. Sala \n 3. Material \n 4. Cancel·lar \n -> ")
+
+    if pregunta == "1":
+        preguntaClient = input ("\n Què vols fer: \n ------------------ \n 1. Crear \n 2. Llegir \n 3. Actualitzar \n 4. Suprimir \n -> ")
+        if preguntaClient == "1":
+            createClient()
+        elif preguntaClient == "2":
+            readClient()
+        elif preguntaClient == "3":
+            updateClient()
+        elif preguntaClient == "4":
+            deleteClient()
+
+    elif pregunta == "2":
+        preguntaSala = input ("\n Què vols fer: \n ------------------ \n 1. Crear \n 2. Llegir \n 3. Actualitzar \n 4. Suprimir \n -> ")
+        if preguntaSala == "1":
+            createSala()
+        elif preguntaSala == "2":
+            readSala()
+        elif preguntaSala == "3":
+            updateSala()
+        elif preguntaSala == "4":
+            deleteSala()
+
+    elif pregunta == "3":
+        preguntaMaterial = input ("\n Què vols fer: \n ------------------ \n 1. Crear \n 2. Llegir \n 3. Actualitzar \n 4. Suprimir \n -> ")
+        if preguntaMaterial == "1":
+            createMaterial()
+        elif preguntaMaterial == "2":
+            readMaterial()
+        elif preguntaMaterial == "3":
+            updateMaterial()
+        elif preguntaMaterial == "4":
+            deleteMaterial()
+
+    elif pregunta == "4": 
+        break
